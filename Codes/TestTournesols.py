@@ -78,7 +78,7 @@ NUM_POINTS = FLAGS.num_points
 MODEL_PATH = FLAGS.model_path
 GPU_INDEX = FLAGS.gpu
 DUMP_DIR = FLAGS.dump_dir
-BLOCK_SIZE = FLAGS.block_sizes
+BLOCK_SIZE = FLAGS.block_size
 STRIDE = FLAGS.stride
 if not os.path.exists(DUMP_DIR): os.mkdir(DUMP_DIR)
 LOG_FOUT = open(os.path.join(DUMP_DIR, 'log_evaluate.txt'), 'w')
