@@ -1,4 +1,4 @@
-from open3d import *
+import open3d as op3d
 import indoor3d_util
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,7 +8,7 @@ import obj_util
 
 def loadData(filename, num_point, block_size=1.0, stride=1.0,
             random_sample=False, sample_num=None, sample_aug=1):
-    cloud = read_point_cloud(filename)
+    cloud = op3d.io.read_point_cloud(filename)
     pts = np.array(cloud.points)
     min_x = np.min(pts[:,0])
     min_y = np.min(pts[:,1])
