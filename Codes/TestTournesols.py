@@ -63,6 +63,14 @@ parser.add_argument(
     '--visu',
     action='store_true',
     help='Whether to output OBJ file for prediction visualization.')
+parser.add_argument(
+    '--block_size',
+    required=True,
+    help='Size of the block for each batch')
+parser.add_argument(
+    '--stride',
+    required=True,
+    help='stride of the block for each batch')
 FLAGS = parser.parse_args()
 
 BATCH_SIZE = FLAGS.batch_size
