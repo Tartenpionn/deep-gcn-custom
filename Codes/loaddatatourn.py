@@ -27,7 +27,7 @@ def loadData(filename, num_point, block_size=1.0, stride=1.0,
              random_sample, sample_num, sample_aug)
 
 def loadDataRaw(filename):
-    cloud = read_point_cloud(filename)
+    cloud = op3d.io.read_point_cloud(filename)
     pts = np.array(cloud.points)
     nb_points = np.shape(pts)[0]
     labels = np.array(cloud.colors)
