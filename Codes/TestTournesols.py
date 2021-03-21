@@ -64,6 +64,7 @@ parser.add_argument(
     '--visu',
     action='store_true',
     help='Whether to output OBJ file for prediction visualization.')
+# These arguments (block_size and stride) have been added to gain control over the way entries are made.
 parser.add_argument(
     '--block_size',
     required=True,
@@ -151,6 +152,12 @@ def wrapped_partial(func, *args, **kwargs):
 
 
 def EvalCustom():
+    """ This function carry out the prediction and evaluation of a file.
+
+    This is the main function of the programm.
+    It computes the prediction of each points in the entries of the network and write results in files.
+    The arguments of this function are taken from the arguments of the program : look at the readme file for detailed explanation.
+    """
     is_training = False
 
     with tf.device('/gpu:' + str(GPU_INDEX)):
@@ -252,9 +259,22 @@ def EvalCustom():
     fout_out_filelist.close()
     sem_seg_util.log_string(
         LOG_FOUT,
-        'all room eval accuracy: %f' % 0)#(total_correct / float(total_seen)))
+        'Accuracy is not available for now as now groud truth is available')
 
 def eval_one_epoch_custom(sess, ops, room_path, out_data_label_filename, out_gt_label_filename):
+  """ Make prediction over one file.
+  
+  ARGS:
+    sess: the tensorflow session
+    ops: operators and variables for the prediction
+    room_path: path to the groud truth file
+    out_data_label_filename: file_path to the prediction file generated
+    out_gt_label_filename: file path to the ground truth file generated
+  RETURN:
+    total_correct: number of correct points predicted
+    total_seen: number of point predicted
+  !! As no ground truth is currently available, total_correct and total_seen are equal to 0 !!
+  """
   error_cnt = 0
   is_training = False
   total_correct = 0
@@ -271,7 +291,6 @@ def eval_one_epoch_custom(sess, ops, room_path, out_data_label_filename, out_gt_
   fout_gt_label = open(out_gt_label_filename, 'w')
 
   current_data, current_label = loaddatatourn.loadData(room_path,NUM_POINTS,BLOCK_SIZE,STRIDE)
-  #current_data, current_label = indoor3d_util.room2blocks_wrapper_normalized(room_path, NUM_POINTS)
   current_data = current_data[:,0:NUM_POINTS,:]
   current_label = np.squeeze(current_label)
   # Get room dimension..
