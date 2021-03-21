@@ -7,6 +7,7 @@
   Author:
     Guohao Li, Matthias Müller, Ali K. Thabet and Bernard Ghanem.
     King Abdullah University of Science and Technology.
+  This file is a modified version adapted by Pierre Cornette
 '''
 import os
 import sys
